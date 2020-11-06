@@ -9,8 +9,9 @@ package ohtu.verkkokauppa;
  *
  * @author phedlund
  */
+
 public interface ViitegeneraattoriInterface {
 
     int uusi();
-    
+
 }
