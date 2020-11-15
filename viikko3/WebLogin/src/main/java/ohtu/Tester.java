@@ -33,6 +33,9 @@ public class Tester {
         sleep(1);
         // nyt pitäisi löytyä "invalid username or password"
         element = driver.findElement(By.cssSelector("#error>p>em"));
+        if (!element.getText().contains("invalid username or password")) {
+            throw new IllegalStateException("Wrong output on invalid password");
+        }
 
         // Skenaario: uuden käyttäjätunnuksen luominen
         driver.findElement(By.linkText("back to home")).click();
