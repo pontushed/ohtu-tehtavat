@@ -37,6 +37,7 @@ public class Tester {
         // Skenaario: uuden käyttäjätunnuksen luominen
         driver.findElement(By.linkText("back to home")).click();
         driver.findElement(By.linkText("register new user")).click();
+
         element = driver.findElement(By.name("username"));
         Random r = new Random();
         element.sendKeys("pekko" + r.nextInt(100000));
