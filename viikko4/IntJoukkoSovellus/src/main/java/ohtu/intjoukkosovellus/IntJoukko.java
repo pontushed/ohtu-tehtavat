@@ -77,11 +77,7 @@ public class IntJoukko {
     }
 
     public int[] asArray() {
-        int[] taulu = new int[mahtavuus];
-        for (int i = 0; i < taulu.length; i++) {
-            taulu[i] = joukko[i];
-        }
-        return taulu;
+        return Arrays.copyOf(joukko, mahtavuus);
     }
 
     @Override
@@ -91,14 +87,14 @@ public class IntJoukko {
         } else if (mahtavuus == 1) {
             return "{" + joukko[0] + "}";
         } else {
-            String tuotos = "{";
+            String alkioLista = "{";
             for (int i = 0; i < mahtavuus - 1; i++) {
-                tuotos += joukko[i];
-                tuotos += ", ";
+                alkioLista += joukko[i];
+                alkioLista += ", ";
             }
-            tuotos += joukko[mahtavuus - 1];
-            tuotos += "}";
-            return tuotos;
+            alkioLista += joukko[mahtavuus - 1];
+            alkioLista += "}";
+            return alkioLista;
         }
     }
 }
