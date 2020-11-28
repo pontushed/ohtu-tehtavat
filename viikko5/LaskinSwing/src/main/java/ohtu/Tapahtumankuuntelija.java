@@ -4,26 +4,48 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+
+import java.util.Map;
+import java.util.HashMap;
  
 public class Tapahtumankuuntelija implements ActionListener {
-    private JButton plus;
-    private JButton miinus;
-    private JButton nollaa;
+    // private JButton plus;
+    // private JButton miinus;
+    // private JButton nollaa;
     private JButton undo;
-    private JTextField tuloskentta;
-    private JTextField syotekentta;
+    // private JTextField tuloskentta;
+    // private JTextField syotekentta;
     private Sovelluslogiikka sovellus;
+
+    private Map<JButton, Komento> komennot;
+    private Komento edellinen = null;
  
     public Tapahtumankuuntelija(JButton plus, JButton miinus, JButton nollaa, JButton undo, JTextField tuloskentta, JTextField syotekentta) {
-        this.plus = plus;
-        this.miinus = miinus;
-        this.nollaa = nollaa;
+        // this.plus = plus;
+        // this.miinus = miinus;
+        // this.nollaa = nollaa;
         this.undo = undo;
-        this.tuloskentta = tuloskentta;
-        this.syotekentta = syotekentta;
+        // this.tuloskentta = tuloskentta;
+        // this.syotekentta = syotekentta;
         this.sovellus = new Sovelluslogiikka();
+        this.komennot = new HashMap<>();
+        this.komennot.put(plus, new Summa(tuloskentta, syotekentta,  nollaa, undo, sovellus) );
+        this.komennot.put(miinus, new Erotus(tuloskentta, syotekentta, nollaa, undo, sovellus) );
+        this.komennot.put(nollaa, new Nollaa(tuloskentta, syotekentta,  nollaa, undo, sovellus) );
     }
     
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        if ( event.getSource() != undo ) {
+            Komento komento = this.komennot.get((JButton)event.getSource());
+            komento.suorita();
+            this.edellinen = komento;
+        } else {
+            this.edellinen.peru();
+            this.edellinen = null;
+        }                  
+    }
+    /* 
     @Override
     public void actionPerformed(ActionEvent ae) {
         int arvo = 0;
@@ -53,6 +75,6 @@ public class Tapahtumankuuntelija implements ActionListener {
             nollaa.setEnabled(true);
         }
         undo.setEnabled(true);
-    }
+    } */
  
 }
